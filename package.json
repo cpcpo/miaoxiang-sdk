@@ -1,0 +1,38 @@
+{
+  "name": "@cpcpo/miaoxiang-sdk",
+  "version": "1.0.0",
+  "description": "东方财富妙想 API 的 TypeScript SDK",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test --import tsx tests/**/*.test.ts",
+    "prepublishOnly": "tsc"
+  },
+  "keywords": [
+    "eastmoney",
+    "miaoxiang",
+    "sdk",
+    "finance",
+    "东方财富",
+    "妙想",
+    "金融"
+  ],
+  "author": "cpcpo",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "dotenv": "^17.4.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.0.0"
+  }
+}
