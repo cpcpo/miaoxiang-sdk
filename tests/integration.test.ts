@@ -80,6 +80,10 @@ async function run() {
     sdk.initiationCoverage('新股分析').then(r => { if (!r) throw new Error('empty'); return r; })
   );
 
+  await testMethod('financeData', () =>
+    sdk.financeData('贵州茅台最近一年的营业收入和净利润').then(r => { if (!r || !r.tables) throw new Error('empty'); return r; })
+  );
+
   console.log('\nDone.');
 }
 

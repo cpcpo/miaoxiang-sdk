@@ -13,6 +13,18 @@ import { earningsReview, EarningsReviewResult } from '../methods/earningsReview'
 import { industryResearch } from '../methods/industryResearch';
 import { topicResearch } from '../methods/topicResearch';
 import { initiationCoverage } from '../methods/initiationCoverage';
+import { financeData } from '../methods/financeData';
+
+export interface FinanceDataResult {
+  tables: Array<{
+    entityName: string;
+    title: string;
+    headers: string[];
+    rows: Array<Record<string, string>>;
+  }>;
+  rowCount: number;
+  message?: string;
+}
 
 export interface SDKConfig {
   apiKey: string;
@@ -78,5 +90,9 @@ export class MiaoxiangSDK {
 
   async initiationCoverage(query: string): Promise<string> {
     return initiationCoverage(this.apiKey, query);
+  }
+
+  async financeData(query: string): Promise<FinanceDataResult> {
+    return financeData(this.apiKey, query);
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@cpcpo/miaoxiang-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "东方财富妙想 API 的 TypeScript SDK",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
