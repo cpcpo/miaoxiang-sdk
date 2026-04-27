@@ -94,6 +94,27 @@ const news = await sdk.financialSearch('寒武纪 688256 最新研报');
 
 ---
 
+### financeData(query)
+
+金融数据查询，支持多资产、多指标组合查询。
+
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| `query` | `string` | 是 | 自然语言查询，如"贵州茅台最近一年的营业收入和净利润" |
+
+返回：`Promise<FinanceDataResult>` - 结构化金融数据表
+
+```typescript
+const result = await sdk.financeData('贵州茅台最近一年的营业收入和净利润');
+// 返回:
+// {
+//   tables: [{ entityName: "贵州茅台", title: "...", headers: [...], rows: [...] }],
+//   rowCount: 5
+// }
+```
+
+---
+
 ### macroData(query)
 
 宏观数据查询。
@@ -291,6 +312,18 @@ interface EarningsReviewResult {
     word?: string;
     dataSheet?: string;
   };
+}
+
+// 金融数据查询返回结果 (src/methods/financeData.ts)
+interface FinanceDataResult {
+  tables: Array<{
+    entityName: string;
+    title: string;
+    headers: string[];
+    rows: Array<Record<string, string>>;
+  }>;
+  rowCount: number;
+  message?: string;
 }
 
 // 宏观数据返回结果 (src/methods/macroData.ts)
