@@ -102,15 +102,11 @@ const news = await sdk.financialSearch('寒武纪 688256 最新研报');
 |------|------|------|------|
 | `query` | `string` | 是 | 自然语言查询，如"贵州茅台最近一年的营业收入和净利润" |
 
-返回：`Promise<FinanceDataResult>` - 结构化金融数据表
+返回：`Promise<{ tables, rowCount, message?, error? }>` - 结构化金融数据表
 
 ```typescript
 const result = await sdk.financeData('贵州茅台最近一年的营业收入和净利润');
-// 返回:
-// {
-//   tables: [{ entityName: "贵州茅台", title: "...", headers: [...], rows: [...] }],
-//   rowCount: 5
-// }
+// 返回: { tables: [...], rowCount: 5, message?: "..." }
 ```
 
 ---
@@ -123,17 +119,11 @@ const result = await sdk.financeData('贵州茅台最近一年的营业收入和
 |------|------|------|------|
 | `query` | `string` | 是 | 自然语言查询，如"中国GDP" |
 
-返回：`Promise<MacroDataResult>` - 结构化宏观数据
+返回：`Promise<{ csvPaths, rowCounts, message?, data?, error? }>` - 结构化宏观数据
 
 ```typescript
 const result = await sdk.macroData('中国近三年GDP');
-// 返回:
-// {
-//   csvPaths: [],
-//   rowCounts: { quarterly: 13, yearly: 4 },
-//   message: "检测到您的数据范围较大...",
-//   data: [{ entityName: "中国GDP", frequency: "yearly", headers: [...], rows: [...] }]
-// }
+// 返回: { csvPaths: [], rowCounts: {...}, data: [...], message?: "..." }
 ```
 
 ---
@@ -198,7 +188,7 @@ const result = await sdk.fundDiagnosis('招商银行基金怎么样？');
 | `query` | `string` | 是 | 查询内容 |
 | `reportDate` | `string` | 否 | 报告期，格式如 '2024-12-31' |
 
-返回：`Promise<EarningsReviewResult>`
+返回：`Promise<{ title, content, shareUrl?, files? }>`
 
 ```typescript
 const review = await sdk.earningsReview('贵州茅台2024年业绩', '2024-12-31');
@@ -291,56 +281,6 @@ const report = await sdk.topicResearch('AI算力主题研究');
 ```
 
 ---
-
-## 类型定义
-
-主要类型定义：
-
-```typescript
-// SDK 配置
-interface SDKConfig {
-  apiKey: string;
-}
-
-// 业绩点评返回结果 (src/methods/earningsReview.ts)
-interface EarningsReviewResult {
-  title: string;
-  content: string;
-  shareUrl?: string;
-  files?: {
-    pdf?: string;
-    word?: string;
-    dataSheet?: string;
-  };
-}
-
-// 金融数据查询返回结果 (src/methods/financeData.ts)
-interface FinanceDataResult {
-  tables: Array<{
-    entityName: string;
-    title: string;
-    headers: string[];
-    rows: Array<Record<string, string>>;
-  }>;
-  rowCount: number;
-  message?: string;
-}
-
-// 宏观数据返回结果 (src/methods/macroData.ts)
-interface MacroDataResult {
-  csvPaths: string[];
-  descriptionPath?: string;
-  rowCounts: Record<string, number>;
-  message?: string;
-  error?: string;
-  data?: Array<{
-    entityName: string;
-    frequency: string;
-    headers: string[];
-    rows: Array<Record<string, string>>;
-  }>;
-}
-```
 
 ---
 
